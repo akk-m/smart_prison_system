@@ -1,0 +1,147 @@
+{% include 'superintendent_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-5">
+        {% if data['up'] %}
+        <!-- Update Warden Details -->
+        <div class="card p-4 shadow-lg">
+            <h2 class="text-center mb-4 text-primary">Update Warden Details</h2>
+            <form method="post" id="updateForm" onsubmit="return validateUpdateForm()">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-person"></i> First Name</label>
+                        <input type="text" name="first_name" class="form-control" value="{{ data['up'][0]['first_name'] }}" required minlength="2">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-person"></i> Last Name</label>
+                        <input type="text" name="last_name" class="form-control" value="{{ data['up'][0]['last_name'] }}" required minlength="2">
+                    </div>
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-geo-alt"></i> Place</label>
+                    <input type="text" name="area" class="form-control" value="{{ data['up'][0]['place'] }}" required minlength="3">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-telephone"></i> Phone</label>
+                    <input type="tel" name="phone_number" class="form-control" value="{{ data['up'][0]['phone'] }}" required pattern="^\d{10}$" title="Phone number must be exactly 10 digits.">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-envelope"></i> Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ data['up'][0]['email'] }}" required>
+                </div>
+    
+                <div class="text-center mt-4">
+                    <button type="submit" name="update" class="btn btn-primary px-4"><i class="bi bi-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+        {% else %}
+        <!-- Register Warden -->
+        <div class="card p-4 shadow-lg">
+            <h2 class="text-center mb-4 text-success">Register a Warden</h2>
+            <form method="post" id="registerForm" onsubmit="return validateRegisterForm()">
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person-circle"></i> Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="Enter username" required minlength="4" pattern="[A-Za-z0-9]+" title="Username must be alphanumeric and at least 4 characters long.">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-lock"></i> Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter password" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$" title="Password must be at least 8 characters long, with uppercase, lowercase, number, and special character.">
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-person"></i> First Name</label>
+                        <input type="text" name="first_name" class="form-control" placeholder="Enter first name" required minlength="2">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-person"></i> Last Name</label>
+                        <input type="text" name="last_name" class="form-control" placeholder="Enter last name" required minlength="2">
+                    </div>
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-geo-alt"></i> Place</label>
+                    <input type="text" name="area" class="form-control" placeholder="Enter place" required minlength="3">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-telephone"></i> Phone</label>
+                    <input type="tel" name="phone_number" class="form-control" placeholder="Enter phone number" required pattern="^\d{10}$" title="Phone number must be exactly 10 digits.">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-envelope"></i> Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+                </div>
+    
+                <div class="text-center mt-4">
+                    <button type="submit" name="set" class="btn btn-success px-4"><i class="bi bi-person-plus"></i> Register</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        <!-- Bootstrap & Icons -->
+        <div class="container mt-4">
+            <h2 class="text-center mb-4">View Wardens</h2>
+            <div class="row">
+                {% for i in data['view'] %}
+                <div class="col-md-4">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary"><i class="bi bi-person-badge"></i> Warden #{{ i['warden_id'] }}</h5>
+                            <p class="card-text"><strong>Login ID:</strong> {{ i['login_id'] }}</p>
+                            <p class="card-text"><strong>Name:</strong> {{ i['first_name'] }} {{ i['last_name'] }}</p>
+                            <p class="card-text"><strong>Place:</strong> {{ i['place'] }}</p>
+                            <p class="card-text"><strong>Phone:</strong> {{ i['phone'] }}</p>
+                            <p class="card-text"><strong>Email:</strong> {{ i['email'] }}</p>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="?action=update&w_id={{i['warden_id']}}" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Update
+                                </a>
+                                <a href="?action=delete&w_id={{i['warden_id']}}" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+
+
+{% include 'footer.html' %}
+
+<!-- JavaScript for Additional Validation -->
+<script>
+    // Validate the "Update" form
+    function validateUpdateForm() {
+        const phone = document.forms["updateForm"]["phone_number"].value;
+        const phonePattern = /^\d{10}$/;
+        
+        if (!phone.match(phonePattern)) {
+            alert("Phone number must be exactly 10 digits.");
+            return false;
+        }
+        return true;
+    }
+
+    // Validate the "Register" form
+    function validateRegisterForm() {
+        const phone = document.forms["registerForm"]["phone_number"].value;
+        const phonePattern = /^\d{10}$/;
+        
+        if (!phone.match(phonePattern)) {
+            alert("Phone number must be exactly 10 digits.");
+            return false;
+        }
+        return true;
+    }
+</script>

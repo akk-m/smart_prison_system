@@ -1,0 +1,61 @@
+{% include 'guard_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-5">
+        <div class="card shadow p-4">
+            {% if data['up'] %}
+            <h2 class="mb-4 text-center">Update Report Details</h2>
+            {% else %}
+            <h2 class="mb-4 text-center">Add Report</h2>
+            {% endif %}
+    
+            <form method="post">
+                <div class="mb-3">
+                    <label for="details" class="form-label"><i class="bi bi-file-text"></i> Details:</label>
+                    <textarea id="details" name="details" class="form-control" rows="3" required>{{ data['up'][0]['details'] if data['up'] else '' }}</textarea>
+                </div>
+    
+                <div class="mb-3">
+                    <label for="a_date" class="form-label"><i class="bi bi-calendar"></i> Date:</label>
+                    <input type="date" id="a_date" name="date" class="form-control" value="{{ data['up'][0]['date'] if data['up'] else '' }}" required>
+                </div>
+    
+                <div class="text-center">
+                    <button type="submit" name="{{ 'update' if data['up'] else 'set' }}" class="btn btn-success">
+                        <i class="bi bi-save"></i> {{ 'Update' if data['up'] else 'Submit' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Security Alerts Section -->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4"><i class="bi bi-shield-exclamation"></i> Security Alerts</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4 border-left {% if i['status'] == 'Active' %}border-danger{% else %}border-success{% endif %}">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger"><i class="bi bi-exclamation-triangle-fill"></i> Security Alert</h5>
+                        <p class="card-text"><strong>Description:</strong> {{ i['description'] }}</p>
+                        <p class="card-text"><strong>Date:</strong> {{ i['date'] }}</p>
+                        <p class="card-text"><strong>Time:</strong> {{ i['time'] }}</p>
+                        <p class="card-text"><strong>Status:</strong> 
+                            <span class="badge {% if i['status'] == 'Active' %} bg-danger {% else %} bg-success {% endif %}">
+                                {{ i['status'] }}
+                            </span>
+                        </p>
+                        <div class="text-center mt-3">
+                            <a href="/update_alert?id={{i['alert_id']}}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil-square"></i> Update Status
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% include 'footer.html' %}

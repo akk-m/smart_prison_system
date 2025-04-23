@@ -1,0 +1,28 @@
+{% include 'customers_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">View Complaint Replies</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-exclamation-triangle"></i> Complaint #{{ i['complaint_id'] }}</h5>
+                        <p class="card-text"><strong>Complaint:</strong> {{ i['complaint'] }}</p>
+                        <p class="card-text"><strong>Reply:</strong> 
+                            {% if i['reply'] %} 
+                                <span class="text-success">{{ i['reply'] }}</span> 
+                            {% else %} 
+                                <span class="text-muted">No Reply Yet</span> 
+                            {% endif %}
+                        </p>
+                        <p class="card-text"><strong>Date:</strong> {{ i['date'] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% include 'footer.html' %}

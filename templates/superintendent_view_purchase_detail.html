@@ -1,0 +1,27 @@
+{% include 'superintendent_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Purchase Details</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary"><i class="bi bi-receipt"></i> Item ID: {{ i['item_id'] }}</h5>
+                        <p class="card-text"><strong>Quantity:</strong> {{ i['quantity'] }}</p>
+                        <p class="card-text"><strong>Amount:</strong> ${{ i['amount'] }}</p>
+                        <p class="card-text"><strong>Status:</strong> 
+                            <span class="badge {% if i['status'] == 'Approved' %} bg-success {% else %} bg-warning {% endif %}">
+                                {{ i['status'] }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+{% include 'footer.html' %}

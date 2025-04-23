@@ -1,0 +1,29 @@
+{% include 'admin_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">View Complaints</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-exclamation-circle"></i> Complaint #{{ i['complaint_id'] }}</h5>
+                        <p class="card-text"><strong>Sender ID:</strong> {{ i['sender_id'] }}</p>
+                        <p class="card-text"><strong>Complaint:</strong> {{ i['complaint'] }}</p>
+                        <p class="card-text"><strong>Reply:</strong> {% if i['reply'] %} {{ i['reply'] }} {% else %} <span class="text-muted">No reply yet</span> {% endif %}</p>
+                        <p class="card-text"><strong>Date:</strong> {{ i['date'] }}</p>
+                        <div class="text-center mt-3">
+                            <a href="/admin_send_reply?id={{i['complaint_id']}}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-reply"></i> Send Reply
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+       
+    <br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

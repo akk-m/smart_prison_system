@@ -1,0 +1,27 @@
+{% include 'guard_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-5">
+        <div class="card shadow p-4">
+            <h2 class="text-center mb-4"><i class="bi bi-exclamation-triangle-fill text-warning"></i> Update Security Alert Status</h2>
+    
+            <form method="post">
+                <div class="mb-3">
+                    <label for="status" class="form-label"><i class="bi bi-shield-lock"></i> Update Status:</label>
+                    <select id="status" name="status" class="form-select">
+                        <option value="Active">Active</option>
+                        <option value="Resolved">Resolved</option>
+                        <option value="Under Investigation">Under Investigation</option>
+                    </select>
+                </div>
+    
+                <div class="text-center">
+                    <button type="submit" name="update" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Update Status
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+{% include 'footer.html' %}

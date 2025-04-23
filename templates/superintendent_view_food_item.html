@@ -1,0 +1,23 @@
+{% include 'superintendent_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Available Food Items</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary"><i class="bi bi-box-seam"></i> {{ i['item_name'] }}</h5>
+                        <p class="card-text"><strong>Description:</strong> {{ i['description'] }}</p>
+                        <p class="card-text"><strong>Stock:</strong> {{ i['stock'] }}</p>
+                        <p class="card-text"><strong>Price:</strong> ${{ i['amount'] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+{% include 'footer.html' %}

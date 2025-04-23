@@ -1,0 +1,21 @@
+{% include 'admin_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">View Daily Reports</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-shield-lock"></i> Guard ID: {{ i['guard_id'] }}</h5>
+                        <p class="card-text"><strong>Details:</strong> {{ i['details'] }}</p>
+                        <p class="card-text"><strong>Date:</strong> {{ i['date'] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% include 'footer.html' %}

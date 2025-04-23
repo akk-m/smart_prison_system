@@ -1,0 +1,29 @@
+{% include 'superintendent_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Criminal Records</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-person-fill-exclamation text-danger"></i> {{ i['criminal_name'] }}</h5>
+                        <p class="card-text"><strong>Place:</strong> {{ i['place'] }}</p>
+                        <p class="card-text"><strong>Cell Number:</strong> {{ i['cell_no'] }}</p>
+                        <p class="card-text"><strong>Details:</strong> {{ i['details'] }}</p>
+                        <p class="card-text"><strong>Verdict:</strong> {{ i['verdict'] }}</p>
+                        <p class="card-text"><strong>Status:</strong> 
+                            <span class="badge {% if i['status'] == 'Active' %} bg-danger {% else %} bg-success {% endif %}">
+                                {{ i['status'] }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+<br><br><br>
+{% include 'footer.html' %}

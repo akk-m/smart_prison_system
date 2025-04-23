@@ -1,0 +1,127 @@
+{% include 'warden_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-5">
+        {% if data['up'] %}
+        <!-- Update Criminal Record Details -->
+        <div class="card p-4 shadow-lg">
+            <h2 class="text-center mb-4 text-danger">Update Criminal Record</h2>
+            <form method="post" onsubmit="return validateUpdateForm()">
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person-fill-exclamation"></i> Criminal Name</label>
+                    <input type="text" name="criminal_name" class="form-control" value="{{data['up'][0]['criminal_name']}}" required minlength="2">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-geo-alt"></i> Place</label>
+                    <input type="text" name="area" class="form-control" value="{{data['up'][0]['place']}}" required minlength="3">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-hash"></i> Cell Number</label>
+                    <input type="text" name="cell_no" class="form-control" value="{{data['up'][0]['cell_no']}}" required pattern="^\d{10}$" title="Cell number must be exactly 10 digits.">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-info-circle"></i> Details</label>
+                    <textarea name="detail" class="form-control" rows="3" required minlength="10">{{data['up'][0]['details']}}</textarea>
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-clipboard-check"></i> Verdict</label>
+                    <input type="text" name="verdict" class="form-control" value="{{data['up'][0]['verdict']}}" required minlength="3">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-shield-check"></i> Status</label>
+                    <select name="status" class="form-select" required>
+                        <option value="Active" {% if data['up'][0]['status'] == 'Active' %}selected{% endif %}>Active</option>
+                        <option value="Released" {% if data['up'][0]['status'] == 'Released' %}selected{% endif %}>Released</option>
+                    </select>
+                </div>
+    
+                <div class="text-center mt-4">
+                    <button type="submit" name="update" class="btn btn-primary px-4"><i class="bi bi-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+        {% else %}
+        <!-- Register Criminal Record -->
+        <div class="card p-4 shadow-lg">
+            <h2 class="text-center mb-4 text-danger">Register Criminal Record</h2>
+            <form method="post" onsubmit="return validateRegisterForm()">
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person-fill-exclamation"></i> Criminal Name</label>
+                    <input type="text" name="criminal_name" class="form-control" placeholder="Enter criminal name" required minlength="2">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-geo-alt"></i> Place</label>
+                    <input type="text" name="area" class="form-control" placeholder="Enter place" required minlength="3">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-hash"></i> Cell Number</label>
+                    <input type="text" name="cell_no" class="form-control" placeholder="Enter cell number" required >
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-info-circle"></i> Details</label>
+                    <textarea name="detail" class="form-control" placeholder="Enter case details" rows="3" required minlength="10"></textarea>
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-clipboard-check"></i> Verdict</label>
+                    <input type="text" name="verdict" class="form-control" placeholder="Enter verdict" required minlength="3">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-shield-check"></i> Status</label>
+                    <select name="status" class="form-select" required>
+                        <option value="Active">Active</option>
+                        <option value="Released">Released</option>
+                    </select>
+                </div>
+    
+                <div class="text-center mt-4">
+                    <button type="submit" name="set" class="btn btn-success px-4"><i class="bi bi-person-plus"></i> Register</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Criminal Records</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger"><i class="bi bi-person-fill-exclamation"></i> {{ i['criminal_name'] }}</h5>
+                        <p class="card-text"><strong>Place:</strong> {{ i['place'] }}</p>
+                        <p class="card-text"><strong>cell no:</strong> {{ i['cell_no'] }}</p>
+                        <p class="card-text"><strong>Details:</strong> {{ i['details'] }}</p>
+                        <p class="card-text"><strong>Verdict:</strong> {{ i['verdict'] }}</p>
+                        <p class="card-text"><strong>Status:</strong> 
+                            <span class="badge {% if i['status'] == 'Active' %} bg-danger {% else %} bg-success {% endif %}">
+                                {{ i['status'] }}
+                            </span>
+                        </p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="?action=update&g_id={{i['record_id']}}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil-square"></i> Update
+                            </a>
+                            <a href="?action=delete&g_id={{i['record_id']}}" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+   
+{% include 'footer.html' %}
+

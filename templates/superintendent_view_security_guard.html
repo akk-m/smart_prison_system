@@ -1,0 +1,23 @@
+{% include 'superintendent_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Security Guards</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary"><i class="bi bi-person-badge"></i> {{ i['first_name'] }} {{ i['last_name'] }}</h5>
+                        <p class="card-text"><strong>Place:</strong> {{ i['place'] }}</p>
+                        <p class="card-text"><strong>Phone:</strong> {{ i['phone'] }}</p>
+                        <p class="card-text"><strong>Email:</strong> {{ i['email'] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+{% include 'footer.html' %}

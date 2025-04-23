@@ -1,0 +1,100 @@
+{% include 'warden_header.html' %}
+<body>
+    <br><br><br>
+    <div class="container mt-5">
+        {% if data['up'] %}
+        <!-- Update Alert Details -->
+        <div class="card p-4 shadow-lg">
+            <h2 class="text-center mb-4 text-danger">Update Alert</h2>
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-exclamation-circle"></i> Description</label>
+                    <textarea name="description" class="form-control" rows="3" required>{{ data['up'][0]['description'] }}</textarea>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-calendar-date"></i> Date</label>
+                        <input type="date" name="date" class="form-control" value="{{ data['up'][0]['date'] }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-clock"></i> Time</label>
+                        <input type="time" name="time" class="form-control" value="{{ data['up'][0]['time'] }}" required>
+                    </div>
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-info-circle"></i> Status</label>
+                    <select name="status" class="form-select" required>
+                        <option value="Active" {% if data['up'][0]['status'] == 'Active' %}selected{% endif %}>Active</option>
+                        <option value="Resolved" {% if data['up'][0]['status'] == 'Resolved' %}selected{% endif %}>Resolved</option>
+                    </select>
+                </div>
+    
+                <div class="text-center mt-4">
+                    <button type="submit" name="update" class="btn btn-primary px-4"><i class="bi bi-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+        {% else %}
+        <!-- Register New Alert -->
+        <div class="card p-4 shadow-lg">
+            <h2 class="text-center mb-4 text-warning">Register a New Alert</h2>
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-exclamation-circle"></i> Description</label>
+                    <textarea name="description" class="form-control" rows="3" placeholder="Enter alert details" required></textarea>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-calendar-date"></i> Date</label>
+                        <input type="date" name="date" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-clock"></i> Time</label>
+                        <input type="time" name="time" class="form-control" required>
+                    </div>
+                </div>
+    
+                <div class="text-center mt-4">
+                    <button type="submit" name="set" class="btn btn-success px-4"><i class="bi bi-plus-circle"></i> Register Alert</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+    
+    
+    
+
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Security Alerts</h2>
+        <div class="row">
+            {% for i in data['view'] %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4 border-left {% if i['status'] == 'Active' %}border-danger{% else %}border-success{% endif %}">
+                    <div class="card-body">
+                        <h5 class="card-title text-warning"><i class="bi bi-exclamation-triangle"></i> Security Alert</h5>
+                        <p class="card-text"><strong>Description:</strong> {{ i['description'] }}</p>
+                        <p class="card-text"><strong>Date:</strong> {{ i['date'] }}</p>
+                        <p class="card-text"><strong>Time:</strong> {{ i['time'] }}</p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="?action=update&alert_id={{i['alert_id']}}&g_id={{g_id}}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil-square"></i> Update
+                            </a>
+                            <a href="?action=delete&alert_id={{i['alert_id']}}&g_id={{g_id}}" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    {% endif %}
+
+{% include 'footer.html' %}

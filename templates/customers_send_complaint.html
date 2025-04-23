@@ -1,0 +1,95 @@
+{% include 'customers_header.html' %}
+<body>
+    <br><br><br>
+    <section class="complaint-container">
+        <h1>Complaint Management</h1>
+        <form method="post" class="complaint-form">
+            <div class="form-group">
+                <label for="complaint">Your Complaint:</label>
+                <textarea 
+                    name="complaint" 
+                    id="complaint" 
+                    rows="5" 
+                    cols="50" 
+                    placeholder="Describe your complaint here..." 
+                    required
+                    aria-required="true"
+                ></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" name="submit_complaint" class="btn-primary">Send Complaint</button>
+                <a href="/customers_view_reply" class="btn-secondary">View Reply</a>
+            </div>
+        </form>
+    </section>
+    
+    <style>
+        .complaint-container {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        .complaint-container h1 {
+            text-align: center;
+            color: #333;
+        }
+    
+        .complaint-form .form-group {
+            margin-bottom: 15px;
+        }
+    
+        .complaint-form label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+    
+        .complaint-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+    
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .btn-primary, .btn-secondary {
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            display: inline-block;
+        }
+    
+        .btn-primary {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+    
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+    
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+    
+{% include 'footer.html' %}

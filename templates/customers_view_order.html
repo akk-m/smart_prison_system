@@ -1,0 +1,23 @@
+{% include 'customers_header.html' %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Your Orders</h2>
+    <div class="row">
+        {% for i in data['view'] %}
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="bi bi-basket"></i> Order #{{ loop.index }}</h5>
+
+                    <!-- Display Food Image -->
+                    <img src="{{ i['image'] }}" class="card-img-top img-fluid" alt="{{ i['item_name'] }}" style="height: 200px; object-fit: cover;">
+                        
+                    <p class="card-text"><strong>Item ID:</strong> {{ i['item_id'] }}</p>
+                    <p class="card-text"><strong>Total Price:</strong> ${{ i['amount'] }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include 'footer.html' %}
